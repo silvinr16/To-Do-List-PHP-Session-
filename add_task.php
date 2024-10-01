@@ -4,10 +4,11 @@ require 'functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $task = [
-        'name' => $_POST['task_name'],
+        'name' => htmlspecialchars($_POST['task_name']),
         'priority' => $_POST['priority']
     ];
     addTask($task);
+    $_SESSION['message'] = 'Task berhasil ditambahkan.';
     header('Location: index.php');
     exit;
 }
@@ -20,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Task</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
     <div class="container mt-5">
@@ -35,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     
                     <div class="mb-3">
                         <label for="priority" class="form-label">Prioritas</label>
-                        <select id="priority" name="priority" class="form-select">
+                        <select id="priority" name="priority" class="form-select" required>
                             <option value="Rendah">Rendah</option>
                             <option value="Sedang">Sedang</option>
                             <option value="Tinggi">Tinggi</option>
@@ -52,6 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
